@@ -28,7 +28,7 @@ from ibapi.contract import Contract
 from ibapi.order import *
 from threading import Timer
 
-class IBapi(EWrapper, EClent):
+class IBapi(EWrapper, EClient):
   def __init__(self):
     EClient.__init__(self, self)
     
