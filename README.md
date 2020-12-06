@@ -18,3 +18,22 @@ To get setup with the IBKR API, follow the steps listed below.
 8. Navigate into source/pythonclient folder and type in the following commands.  
 `python setup.py build`  
 `python setup.py install`  
+9. Open a new file using your favorite IDE and type in the following code:  
+```python  
+from ibapi.client import EClient
+from ibapi.wrapper import EWrapper
+from ibapi.contract import Contract
+from ibapi.order import *
+from threading import Timer
+
+class IBapi(EWrapper, EClent):
+  def __init__(self):
+    EClient.__init__(self, self)
+    
+app = IBapi()
+app.connect('127.0.0.1', 7497, 123)
+app.run()
+
+time.sleep(2)
+app.disconnect
+```
