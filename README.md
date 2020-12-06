@@ -1,5 +1,7 @@
 # Table of Contents
-## How to get setup
-## How to fire off individual trades
-## How to receive data
+[How to Get Setup](#setup)
+[How to Fire Off Individual Trades](#firetrades)
+[How to Receive Data](#receivedata)
 
+<a name="setup"/>
+## How to Get Setup
