@@ -18,7 +18,7 @@ To get setup with the IBKR API, follow the steps listed below.
 8. Then type in the following commands.  
 `python setup.py build`  
 `python setup.py install`  
-[u]Note[/u]: for Ubuntu and derivates you'll need to use `python3` command instead of `python`. 
+> Note: for Ubuntu and derivates you'll need to use `python3` instead of `python`. For Ubuntu `python` refers to python 2.x version, and `python3` refers to python 3.x version.  
 9. Launch your TWS client and enable API connectivity by following the instructions at: https://interactivebrokers.github.io/tws-api/initial_setup.html  
 10. Open a new file using your favorite IDE and type in the following code:  
 ```python  
