@@ -18,7 +18,8 @@ To get setup with the IBKR API, follow the steps listed below.
 8. Navigate into source/pythonclient folder and type in the following commands.  
 `python setup.py build`  
 `python setup.py install`  
-9. Open a new file using your favorite IDE and type in the following code:  
+9. Launch your TWS client and enable API connectivity by following the instructions at: https://interactivebrokers.github.io/tws-api/initial_setup.html  
+10. Open a new file using your favorite IDE and type in the following code:  
 ```python  
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
