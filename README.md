@@ -39,3 +39,6 @@ app.run()
 time.sleep(2)
 app.disconnect
 ```
+
+Download Python here:
+https://www.python.org/downloads/
