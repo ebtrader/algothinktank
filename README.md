@@ -5,7 +5,15 @@
 [How to Receive Data](#receivedata)  
   
 ## How to Get Setup  
-  
+Download Python here:
+https://www.python.org/downloads/
+
+Download PyCharm IDE here:
+https://www.jetbrains.com/pycharm/download/#section=windows
+
+Download IBKR TWS here:
+https://www1.interactivebrokers.com/en/index.php?f=16040
+
 To get setup with the IBKR API, follow the steps listed below.  
 
 1. Visit the url: https://interactivebrokers.github.io/  
@@ -40,5 +48,4 @@ time.sleep(2)
 app.disconnect
 ```
 
-Download Python here:
-https://www.python.org/downloads/
+
