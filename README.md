@@ -41,7 +41,8 @@ class IBapi(EWrapper, EClient):
     EClient.__init__(self, self)
     
 app = IBapi()
-app.connect('127.0.0.1', 7497, 123)
+app.connect('127.0.0.1', 7497, 123)  # TWS PaperTrading
+app.connect('127.0.0.1', 4002, 123)  # IB Gateway PaperTrading
 app.run()
 
 time.sleep(2)

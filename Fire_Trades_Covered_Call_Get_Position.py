@@ -144,7 +144,6 @@ class TestApp(EWrapper, EClient):
         self.disconnect()
 
 
-#execute the classes
 def main():
     app = BuytheStock()
     app.nextOrderId = 0
