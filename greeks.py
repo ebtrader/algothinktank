@@ -17,6 +17,7 @@ Theta: partial wrt T
 Vega: partial wrt v
 Rho: partial wrt r """
 
+
 def Black_Scholes_Greeks_Call(S, K, r, v, T, d):
     T_sqrt = sqrt(T)
     d1 = (log(float(S)/K)+((r-d)+v*v/2.)*T)/(v*T_sqrt)
@@ -28,7 +29,7 @@ def Black_Scholes_Greeks_Call(S, K, r, v, T, d):
     Rho = K*T*exp(-r*T)*norm.cdf(d2)
     return Delta, Gamma, Theta, Vega, Rho
 
-print (Black_Scholes_Greeks_Call(100, 100, 0.005, 0.06, 0.4, 0))
+print(Black_Scholes_Greeks_Call(100, 100, 0.005, 0.06, 0.4, 0))
 
 """Calculating the partial derivatives for a Black Scholes Option (Put)
 # S - Stock price
@@ -43,6 +44,7 @@ Gamma: second partial wrt S
 Theta: partial wrt T
 Vega: partial wrt v
 Rho: partial wrt r """
+
 
 def Black_Scholes_Greeks_Put(S, K, r, v, T, d):
     T_sqrt = sqrt(T)

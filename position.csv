@@ -1,4 +1,7 @@
-,symbol,security_type,position
-0,AAPL,STK,100.0
-1,TQQQ,STK,500.0
-2,TQQQ,OPT,-1.0
+,symbol,sectype,position
+0,AAPL,STK,300.0
+1,ACHC,STK,100.0
+2,BA,STK,100.0
+3,BMW,STK,400.0
+4,TNA,STK,300.0
+5,TQQQ,STK,-100.0
