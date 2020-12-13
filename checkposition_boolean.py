@@ -26,6 +26,10 @@ newobj3 = df.loc[lambda df: df['security_type'].str.contains('STK'), :] # create
 
 print('only stock positions', newobj3)
 
+newobj3sm = df.loc[lambda df: df['security_type'].str.contains('OPT'), :] # creates a new dataframe with only those positions that are OPT
+
+print('only option positions', newobj3sm)
+
 #this is not working
 #newobj4 = df.loc[lambda df: df['security_type'].str.contains('STK') & df['position'] > 100, :] # creates a new dataframe with only those positions that are stock and over 100 shares
 
