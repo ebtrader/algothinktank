@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="37bf1f8d-7386-4efb-a958-b3ac91c86ff7" name="Default Changelist" comment="Genearted .gitignore file">
+    <list default="true" id="37bf1f8d-7386-4efb-a958-b3ac91c86ff7" name="Default Changelist" comment="Add files via upload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOP Tutorial/1-Defining_a_New_Class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tutorials/OOP/1-Defining_a_New_Class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Historical_DF_Options.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Historical_DF_Options.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Historical_DF_Options_BID_ASKv1.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Historical_DF_Options_BID_ASKv1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Market_Data.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Market_Data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Market_Data_Stock.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Market_Data_Stock.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Options.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Options.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program_Streaming_ES.py" beforeDir="false" afterPath="$PROJECT_DIR$/getHistoricalData/Program_Streaming_ES.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,42 +27,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/getHistoricalData" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OOP Tutorial" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Apps\bin\ibkr\getHistoricalData" />
-      <recent name="C:\Apps\bin\ibkr\Tutorials" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jsidd\PycharmProjects\ibkr\OOP Tutorial" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="get_position_DF" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/get_position_DF.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.get_position_DF" />
-      </list>
-    </recent_temporary>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jsidd\PycharmProjects\ibkr\Other Files" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -104,14 +71,28 @@
       <option name="project" value="LOCAL" />
       <updated>1607870493103</updated>
     </task>
-    <task id="LOCAL-00004" summary="Genearted .gitignore file">
-      <created>1607889612245</created>
+    <task id="LOCAL-00004" summary="Add files via upload">
+      <created>1607870828515</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1607889612245</updated>
+      <updated>1607870828515</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Add files via upload">
+      <created>1607871063786</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1607871063786</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add files via upload">
+      <created>1607883820814</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1607883820814</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,11 +105,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add files via upload" />
-    <MESSAGE value="Genearted .gitignore file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Genearted .gitignore file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add files via upload" />
   </component>
 </project>
