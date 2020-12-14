@@ -89,7 +89,7 @@ class SelltheCalls(EWrapper, EClient):
         contract.secType = "OPT"
         contract.exchange = "SMART"
         contract.currency = "USD"
-        contract.lastTradeDateOrContractMonth = "20201204"
+        contract.lastTradeDateOrContractMonth = "20201218"
         contract.strike = 150
         contract.right = "C"
         contract.multiplier = "100"
