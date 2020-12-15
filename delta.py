@@ -11,7 +11,8 @@ import numpy as np
 
 # 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
 
-ticker = yf.Ticker("TQQQ")
+tickername = input('Please provide a valid ticker name:')
+ticker = yf.Ticker(tickername)
 #aapl_historical = aapl.history(start="2020-12-02", end="2020-12-04", interval="5m")
 #print (aapl_historical)
 
@@ -20,7 +21,8 @@ multiple_tickers = yf.download("AMZN AAPL GOOG", start="2017-01-01", end="2017-0
 
 #print (aapl.options)
 
-opt = ticker.option_chain('2020-12-11')
+optionexpiry = input('Please enter a valid expiry date (format: yyyy-mm-dd):'    )
+opt = ticker.option_chain(optionexpiry)
 #print(opt.calls)
 #print(opt.puts)
 
