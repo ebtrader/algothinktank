@@ -19,8 +19,8 @@ class BuytheStock(EWrapper, EClient):
         self.nextOrderId = orderId
         self.start()
 
-    def orderStatus(self, orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId,
-                    whyHeld, mktCapPrice):
+    def orderStatus(self, orderId, status, filled, remaining, avgFillPrice, permId, parentId,
+                    lastFillPrice, clientId, whyHeld, mktCapPrice):
         print("OrderStatus. Id: ", orderId, ", Status: ", status, ", Filled:", filled, ", Remaining: ", remaining,
               ", LastFillPrice: ", lastFillPrice)
 
@@ -31,7 +31,6 @@ class BuytheStock(EWrapper, EClient):
     def execDetails(self, reqId, contract, execution):
         print("ExecDetails. ", reqId, contract.symbol, contract.secType, contract.currency, execution.execId,
               execution.orderId, execution.shares, execution.lastLiquidity)
-
 
     def start(self):
 
