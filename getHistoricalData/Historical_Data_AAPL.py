@@ -18,7 +18,7 @@ class TestApp(EWrapper, EClient):
 
 def main():
     app = TestApp()
-    app.connect("127.0.0.1", 4002, 0)
+    app.connect("127.0.0.1", 7497, 0)
     contract = Contract()
     contract.symbol = "AAPL"
     contract.secType = "STK"
