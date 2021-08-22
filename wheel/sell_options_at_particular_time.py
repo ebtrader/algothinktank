@@ -36,11 +36,14 @@ class TestApp(EWrapper, EClient):
 
     def sendOrder(self, action):
         # Create contract object
-        self.contract.symbol = 'NQ'
-        self.contract.secType = 'FUT'
-        self.contract.exchange = 'GLOBEX'
+        self.contract.symbol = 'TQQQ'
+        self.contract.secType = 'OPT'
+        self.contract.exchange = 'SMART'
         self.contract.currency = 'USD'
-        self.contract.lastTradeDateOrContractMonth = "202109"
+        self.contract.lastTradeDateOrContractMonth = "20210827"
+        self.contract.strike = 135
+        self.contract.right = "C"
+        self.contract.multiplier = "100"
 
         order = Order()
         order.action = action
@@ -49,9 +52,9 @@ class TestApp(EWrapper, EClient):
         self.placeOrder(self.nextOrderId(), self.contract, order)
 
     def check_and_send_order(self):
-        pause.until(datetime(2021, 8, 14, 14, 43, 0))  # this is the time at which you can buy shares
-        self.sendOrder('BUY')
-        pause.until(datetime(2021, 8, 14, 14, 43, 15))
+        pause.until(datetime(2021, 8, 22, 18, 31, 0))  # this is the time at which you can buy shares
+        self.sendOrder('SELL')
+        pause.until(datetime(2021, 8, 22, 18, 31, 15))
         self.sendOrder('SELL')
         self.disconnect()
 
