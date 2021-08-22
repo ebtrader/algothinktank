@@ -1,8 +1,10 @@
 Wheel Story
 
 1. Check what the cash balance is
+    a. 'check_cash_balance.py'
 
 2. Get current stock price
+    a. 
 
 3. Calculate number of shares_to_buy = cash_balance / stock_px
 
