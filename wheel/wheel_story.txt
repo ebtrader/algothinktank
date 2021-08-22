@@ -1,15 +1,21 @@
 Wheel Story
 
-1. Do the trade on Monday
-2. Do it at least 30 mins after the open
+1. Check what the cash balance is
+
+2. Get current stock price
+
+3. Calculate number of shares_to_buy = cash_balance / stock_px
+
+4. Buy the shares on Monday at 10 am
     a. 'buy_shares_at_particular_time.py'
-    b. 'sell_options_at_particular_time.py'
 
-3. Check what the cash balance is
+5. check position
 
-4. Get current stock price
-5. Calculate number of shares_to_sell = cash_balance / stock_px
-6. Calculate number of contracts to sell = shares_to_sell / 100
-7. Buy the shares
-8. Sell the cars for coming friday expiration
+6. calculate total number of shares in portfolio
+
+7. Calculate number of contracts to sell = total_shares / 100
+
+8. Sell the options for coming options expiration
+    a. 'sell_options_at_particular_time.py'
+
 9. Run the loop again coming Monday
