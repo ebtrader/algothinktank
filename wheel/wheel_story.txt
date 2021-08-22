@@ -4,9 +4,11 @@ Wheel Story
     a. 'check_cash_balance.py'
 
 2. Get current stock price
-    a. 
+    a. 'yahoo_check_px.py'
+    b. 'IBKR_px_check.py'
 
 3. Calculate number of shares_to_buy = cash_balance / stock_px
+
 
 4. Buy the shares on Monday at 10 am
     a. 'buy_shares_at_particular_time.py'
