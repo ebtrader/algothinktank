@@ -12,6 +12,7 @@ class TestApp(EWrapper, EClient):
         EClient.__init__(self, wrapper=self)
         self.contract = Contract()
         self.data = []
+        self.df_px = pd.DataFrame()
         self.df = pd.DataFrame()
         self.cash_value = 0
         self.recent_px = 0
@@ -51,7 +52,7 @@ class TestApp(EWrapper, EClient):
         #       "Price:", price, "CanAutoExecute:", attrib.canAutoExecute,
         #       "PastLimit:", attrib.pastLimit, end=' ')
         self.data.append([tickType, price])
-        self.df = pd.DataFrame(self.data, columns=['TickType', 'Price'])
+        self.df_px = pd.DataFrame(self.data, columns=['TickType', 'Price'])
 
     def tickSize(self, reqId: TickerId, tickType: TickType, size: int):
         super().tickSize(reqId, tickType, size)
@@ -63,8 +64,8 @@ class TestApp(EWrapper, EClient):
         self.get_px()
 
     def get_px(self):
-        print(self.df)
-        self.recent_px = self.df.loc[0, 'Price']
+        print(self.df_px)
+        self.recent_px = self.df_px.loc[self.df_px['TickType'] == 4, 'Price'].iloc[0]
         print(f'recent price: {self.recent_px}')
         self.accountOperations_req()
 
@@ -97,7 +98,7 @@ class TestApp(EWrapper, EClient):
         self.calc_contracts()
 
     def calc_contracts(self):
-        num_shares = float(self.cash_value) / (self.recent_px / 100)
+        num_shares = float(self.cash_value) / (self.recent_px / 100) # get rid of  / 100
         safety_num_shares = 0.75 * num_shares
         self.shares_to_buy = math.floor(safety_num_shares / 100) * 100
         print(f'shares to buy: {self.shares_to_buy}')
