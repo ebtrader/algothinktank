@@ -11,6 +11,7 @@ class TestApp(EWrapper, EClient):
         EWrapper.__init__(self)
         EClient.__init__(self, wrapper=self)
         self.contract = Contract()
+        self.data_px = []
         self.data = []
         self.df_px = pd.DataFrame()
         self.df = pd.DataFrame()
@@ -51,8 +52,8 @@ class TestApp(EWrapper, EClient):
         # print("TickPrice. TickerId:", reqId, "tickType:", tickType,
         #       "Price:", price, "CanAutoExecute:", attrib.canAutoExecute,
         #       "PastLimit:", attrib.pastLimit, end=' ')
-        self.data.append([tickType, price])
-        self.df_px = pd.DataFrame(self.data, columns=['TickType', 'Price'])
+        self.data_px.append([tickType, price])
+        self.df_px = pd.DataFrame(self.data_px, columns=['TickType', 'Price'])
 
     def tickSize(self, reqId: TickerId, tickType: TickType, size: int):
         super().tickSize(reqId, tickType, size)
