@@ -8,18 +8,18 @@ Wheel Story
     b. 'IBKR_px_check.py'
 
 3. Calculate number of shares_to_buy = cash_balance / stock_px
+    a. 'calc_shares_and_contracts.py'
 
-
-4. Buy the shares on Monday at 10 am
+5. Buy the shares on Monday at 10 am
     a. 'buy_shares_at_particular_time.py'
 
-5. check position
+6. check position
 
-6. calculate total number of shares in portfolio
+7. calculate total number of shares in portfolio
 
-7. Calculate number of contracts to sell = total_shares / 100
+8. Calculate number of contracts to sell = total_shares / 100
 
-8. Sell the options for coming options expiration
+9. Sell the options for coming options expiration
     a. 'sell_options_at_particular_time.py'
 
-9. Run the loop again coming Monday
+10. Run the loop again coming Monday
