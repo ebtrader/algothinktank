@@ -1,16 +1,29 @@
-import pandas as pd
+# ibkr packages
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
+# types
 from ibapi.contract import * # @UnusedWildImport
+from ibapi.order import Order
 from ibapi.common import *  # @UnusedWildImport
 from ibapi.ticktype import * # @UnusedWildImport
+# other packages
+import pandas as pd
+from datetime import datetime
 import math
+import pause
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
         EWrapper.__init__(self)
         EClient.__init__(self, wrapper=self)
+
+        # this is for trading
+        self.nextValidOrderId = None
+        self.permId2ord = {}
+
+        # this is for calcs of share and contracts
         self.contract = Contract()
+        self.CallContract = Contract()
         self.data_px = []
         self.data = []
         self.df_px = pd.DataFrame()
@@ -38,11 +51,11 @@ class TestApp(EWrapper, EClient):
         print("Executing requests ... finished")
 
     def tickDataOperations_req(self):
-        self.contract.symbol = 'NQ'
-        self.contract.secType = 'FUT'
-        self.contract.exchange = 'GLOBEX'
+        self.contract.symbol = 'QQQ'
+        self.contract.secType = 'STK'
+        self.contract.exchange = 'SMART'
         self.contract.currency = 'USD'
-        self.contract.lastTradeDateOrContractMonth = "202112"
+        # self.contract.lastTradeDateOrContractMonth = "202112"
 
         self.reqMktData(1002, self.contract, "", True, False, [])
 
@@ -99,12 +112,42 @@ class TestApp(EWrapper, EClient):
         self.calc_contracts()
 
     def calc_contracts(self):
-        num_shares = float(self.cash_value) / (self.recent_px / 100) # get rid of  / 100
-        safety_num_shares = 0.75 * num_shares
+        num_shares = float(self.cash_value) / (self.recent_px) # get rid of  / 100
+        safety_num_shares = 0.10 * num_shares # this is percentage of cash
         self.shares_to_buy = math.floor(safety_num_shares / 100) * 100
         print(f'shares to buy: {self.shares_to_buy}')
         self.num_contracts = self.shares_to_buy / 100
         print(f'number of contracts: {self.num_contracts}')
+        self.check_and_send_order()
+
+    def sendOrder(self, action):
+        order = Order()
+        order.action = action
+        order.totalQuantity = self.shares_to_buy
+        order.orderType = "MKT"
+        self.placeOrder(self.nextOrderId(), self.contract, order)
+
+    def sendCallOrder(self, action):
+        self.CallContract.symbol = 'QQQ'
+        self.CallContract.secType = 'OPT'
+        self.CallContract.exchange = 'SMART'
+        self.CallContract.currency = 'USD'
+        self.CallContract.lastTradeDateOrContractMonth = "20211217"
+        self.CallContract.strike = 395
+        self.CallContract.right = "C"
+        self.CallContract.multiplier = "100"
+
+        order = Order()
+        order.action = action
+        order.totalQuantity = self.num_contracts
+        order.orderType = "MKT"
+        self.placeOrder(self.nextOrderId(), self.CallContract, order)
+
+    def check_and_send_order(self):
+        pause.until(datetime(2021, 12, 13, 12, 9, 0))  # this is the time at which you can buy shares
+        self.sendOrder('BUY')
+        pause.until(datetime(2021, 12, 13, 12, 9, 15))
+        self.sendCallOrder('SELL')
 
         self.disconnect()
 

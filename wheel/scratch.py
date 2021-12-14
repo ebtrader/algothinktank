@@ -1,16 +1,30 @@
-import pandas as pd
+# ibkr packages
 from ibapi.client import EClient
 from ibapi.wrapper import EWrapper
+# types
 from ibapi.contract import * # @UnusedWildImport
+from ibapi.order import Order
 from ibapi.common import *  # @UnusedWildImport
 from ibapi.ticktype import * # @UnusedWildImport
+# other packages
+import pandas as pd
+from datetime import datetime, date, timedelta
 import math
+import pause
+import time
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
         EWrapper.__init__(self)
         EClient.__init__(self, wrapper=self)
+
+        # this is for trading
+        self.nextValidOrderId = None
+        self.permId2ord = {}
+
+        # this is for calcs of share and contracts
         self.contract = Contract()
+        self.CallContract = Contract()
         self.data_px = []
         self.data = []
         self.df_px = pd.DataFrame()
@@ -33,16 +47,32 @@ class TestApp(EWrapper, EClient):
         self.nextValidOrderId += 1
         return oid
 
+    def next_weekday(self, weekday):  # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
+        d = date.today()
+        days_ahead = weekday - d.weekday()
+
+        if days_ahead < 0:  # target day already happened this week also try <=
+            days_ahead += 7
+
+        return d + timedelta(days_ahead)
+
     def start(self):
+        # calculate next Monday/weekday
+        next_weekday = self.next_weekday(1) # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
+        year = next_weekday.year
+        month = next_weekday.month
+        day = next_weekday.day
+
+        # pause until trigger time on coming Monday/weekday
+        print("Pausing until designated trade time...")
+        pause.until(datetime(year, month, day, 4, 57, 45))
         self.tickDataOperations_req()
-        print("Executing requests ... finished")
 
     def tickDataOperations_req(self):
-        self.contract.symbol = 'NQ'
-        self.contract.secType = 'FUT'
-        self.contract.exchange = 'GLOBEX'
+        self.contract.symbol = 'QQQ'
+        self.contract.secType = 'STK'
+        self.contract.exchange = 'SMART'
         self.contract.currency = 'USD'
-        self.contract.lastTradeDateOrContractMonth = "202112"
 
         self.reqMktData(1002, self.contract, "", True, False, [])
 
@@ -88,7 +118,7 @@ class TestApp(EWrapper, EClient):
 
     def accountSummaryEnd(self, reqId: int):
         super().accountSummaryEnd(reqId)
-        print("AccountSummaryEnd. ReqId:", reqId)
+        # print("AccountSummaryEnd. ReqId:", reqId)
         self.get_cash()
 
     def get_cash(self):
@@ -99,12 +129,54 @@ class TestApp(EWrapper, EClient):
         self.calc_contracts()
 
     def calc_contracts(self):
-        num_shares = float(self.cash_value) / (self.recent_px / 100) # get rid of  / 100
-        safety_num_shares = 0.75 * num_shares
+        num_shares = float(self.cash_value) / (self.recent_px) # get rid of  / 100
+        percentage_of_cash_to_use = 0.40
+        safety_num_shares = percentage_of_cash_to_use * num_shares # this is percentage of cash
         self.shares_to_buy = math.floor(safety_num_shares / 100) * 100
         print(f'shares to buy: {self.shares_to_buy}')
         self.num_contracts = self.shares_to_buy / 100
         print(f'number of contracts: {self.num_contracts}')
+        self.check_and_send_order()
+
+    def sendOrder(self, action):
+        order = Order()
+        order.action = action
+        order.totalQuantity = self.shares_to_buy
+        order.orderType = "LMT"
+        # order.orderType = "MKT"
+        order.lmtPrice = self.recent_px
+
+        self.placeOrder(self.nextOrderId(), self.contract, order)
+
+    def sendCallOrder(self, action):
+        strike = int(self.recent_px)
+        next_friday = self.next_weekday(4)  # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
+        year = next_friday.year
+        month = next_friday.month
+        day = next_friday.day
+        coming_fri_expiration = str(year) + str(month) + str(day)
+
+        self.CallContract.symbol = 'QQQ'
+        self.CallContract.secType = 'OPT'
+        self.CallContract.exchange = 'SMART'
+        self.CallContract.currency = 'USD'
+        self.CallContract.lastTradeDateOrContractMonth = coming_fri_expiration
+        self.CallContract.strike = str(strike)
+        self.CallContract.right = "C"
+        self.CallContract.multiplier = "100"
+
+        order = Order()
+        order.action = action
+        order.totalQuantity = self.num_contracts
+        # order.orderType = "MKT"
+        order.orderType = "LMT"
+        order.lmtPrice = 1
+        self.placeOrder(self.nextOrderId(), self.CallContract, order)
+
+    def check_and_send_order(self):
+        self.sendOrder('BUY')
+        time.sleep(5)
+        self.sendCallOrder('SELL')
 
         self.disconnect()
 
