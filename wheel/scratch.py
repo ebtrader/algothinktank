@@ -13,6 +13,11 @@ import math
 import pause
 import time
 
+STOCK_SYMBOL = 'QQQ'
+TRADE_EXECUTION_HOUR = 5
+TRADE_EXECUTION_MIN = 7
+TRADE_EXECUTION_SEC = 30
+
 class TestApp(EWrapper, EClient):
     def __init__(self):
         EWrapper.__init__(self)
@@ -65,11 +70,11 @@ class TestApp(EWrapper, EClient):
 
         # pause until trigger time on coming Monday/weekday
         print("Pausing until designated trade time...")
-        pause.until(datetime(year, month, day, 4, 57, 45))
+        pause.until(datetime(year, month, day, TRADE_EXECUTION_HOUR, TRADE_EXECUTION_MIN, TRADE_EXECUTION_SEC))
         self.tickDataOperations_req()
 
     def tickDataOperations_req(self):
-        self.contract.symbol = 'QQQ'
+        self.contract.symbol = STOCK_SYMBOL
         self.contract.secType = 'STK'
         self.contract.exchange = 'SMART'
         self.contract.currency = 'USD'
@@ -122,8 +127,8 @@ class TestApp(EWrapper, EClient):
         self.get_cash()
 
     def get_cash(self):
-        print(self.df)
-        self.df.to_csv('acct_value.csv')
+        # print(self.df)
+        # self.df.to_csv('acct_value.csv')
         self.cash_value = self.df.loc[self.df['Account'] == 'CashBalance', 'Value'].iloc[0]
         print(f'cash value: {self.cash_value}')
         self.calc_contracts()
@@ -142,21 +147,26 @@ class TestApp(EWrapper, EClient):
         order = Order()
         order.action = action
         order.totalQuantity = self.shares_to_buy
-        order.orderType = "LMT"
         # order.orderType = "MKT"
+
+        # use these next 2 lines for limit orders
+        order.orderType = "LMT"
         order.lmtPrice = self.recent_px
 
         self.placeOrder(self.nextOrderId(), self.contract, order)
 
     def sendCallOrder(self, action):
+        # calculate the strike
         strike = int(self.recent_px)
+
+        # calculate coming fri expiration
         next_friday = self.next_weekday(4)  # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
         year = next_friday.year
         month = next_friday.month
         day = next_friday.day
         coming_fri_expiration = str(year) + str(month) + str(day)
 
-        self.CallContract.symbol = 'QQQ'
+        self.CallContract.symbol = STOCK_SYMBOL
         self.CallContract.secType = 'OPT'
         self.CallContract.exchange = 'SMART'
         self.CallContract.currency = 'USD'
@@ -169,8 +179,11 @@ class TestApp(EWrapper, EClient):
         order.action = action
         order.totalQuantity = self.num_contracts
         # order.orderType = "MKT"
+
+        # use these next 2 lines for limit orders
         order.orderType = "LMT"
         order.lmtPrice = 1
+
         self.placeOrder(self.nextOrderId(), self.CallContract, order)
 
     def check_and_send_order(self):
