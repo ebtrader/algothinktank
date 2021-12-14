@@ -14,9 +14,12 @@ import pause
 import time
 
 STOCK_SYMBOL = 'QQQ'
+PERCENTAGE_OF_CASH_TO_USE = 0.4
+
+DESIGNATED_DAY_TO_MAKE_THE_TRADE = 1 # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
 TRADE_EXECUTION_HOUR = 5
-TRADE_EXECUTION_MIN = 7
-TRADE_EXECUTION_SEC = 30
+TRADE_EXECUTION_MIN = 36
+TRADE_EXECUTION_SEC = 0
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -63,7 +66,7 @@ class TestApp(EWrapper, EClient):
 
     def start(self):
         # calculate next Monday/weekday
-        next_weekday = self.next_weekday(1) # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
+        next_weekday = self.next_weekday(DESIGNATED_DAY_TO_MAKE_THE_TRADE) # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
         year = next_weekday.year
         month = next_weekday.month
         day = next_weekday.day
@@ -135,7 +138,7 @@ class TestApp(EWrapper, EClient):
 
     def calc_contracts(self):
         num_shares = float(self.cash_value) / (self.recent_px) # get rid of  / 100
-        percentage_of_cash_to_use = 0.40
+        percentage_of_cash_to_use = PERCENTAGE_OF_CASH_TO_USE
         safety_num_shares = percentage_of_cash_to_use * num_shares # this is percentage of cash
         self.shares_to_buy = math.floor(safety_num_shares / 100) * 100
         print(f'shares to buy: {self.shares_to_buy}')
