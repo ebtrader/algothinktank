@@ -16,10 +16,10 @@ import time
 STOCK_SYMBOL = 'QQQ'
 PERCENTAGE_OF_CASH_TO_USE = 0.4
 
-DESIGNATED_DAY_TO_MAKE_THE_TRADE = 3 # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
-TRADE_EXECUTION_HOUR = 19
-TRADE_EXECUTION_MIN = 24
-TRADE_EXECUTION_SEC = 0
+DESIGNATED_DAY_TO_MAKE_THE_TRADE = 1 # 0=Mon, 1=Tues, 2=Wed, 3=Thu, 4=Fri
+TRADE_EXECUTION_HOUR = 8
+TRADE_EXECUTION_MIN = 9
+TRADE_EXECUTION_SEC = 45
 
 class TestApp(EWrapper, EClient):
     def __init__(self):
@@ -37,12 +37,9 @@ class TestApp(EWrapper, EClient):
         self.data = []
         self.df_px = pd.DataFrame()
         self.df = pd.DataFrame()
-        self.df_position = pd.DataFrame(columns=['symbol', 'sectype', 'position'])
-        self.existing_share_count = 0
         self.cash_value = 0
         self.recent_px = 0
         self.shares_to_buy = 0
-        self.existing_plus_new_shares = 0
         self.num_contracts = 0
 
     def nextValidId(self, orderId: int):
@@ -115,25 +112,9 @@ class TestApp(EWrapper, EClient):
         # Requesting accounts' summary
         # ! [reqaaccountsummary]
         self.reqAccountSummary(9002, "All", "$LEDGER")
-        self.reqAccountUpdates(True, "")
         # ! [reqaaccountsummary]
 
         # ! [accountsummary]
-
-    def updatePortfolio(self, contract: Contract, position: float,
-                        marketPrice: float, marketValue: float,
-                        averageCost: float, unrealizedPNL: float,
-                        realizedPNL: float, accountName: str):
-        print("UpdatePortfolio.", "Symbol:", contract.symbol, "SecType:", contract.secType, "Exchange:",
-              contract.exchange,
-              "Position", position, "MarketPrice:", marketPrice, "MarketValue:", marketValue, "AverageCost:",
-              averageCost,
-              "UnrealizedPNL:", unrealizedPNL, "RealizedPNL:", realizedPNL, "AccountName:", accountName)
-
-        self.df_position.loc[len(self.df_position)] = [contract.symbol, contract.secType, position]
-        print(self.df_position)
-        self.existing_share_count = self.df_position['position'].iloc[0]
-        print(self.existing_share_count)
 
     def accountSummary(self, reqId: int, account: str, tag: str, value: str,
                        currency: str):
@@ -161,8 +142,7 @@ class TestApp(EWrapper, EClient):
         safety_num_shares = percentage_of_cash_to_use * num_shares # this is percentage of cash
         self.shares_to_buy = math.floor(safety_num_shares / 100) * 100
         print(f'shares to buy: {self.shares_to_buy}')
-        self.existing_plus_new_shares = self.shares_to_buy + self.existing_share_count
-        self.num_contracts = self.existing_plus_new_shares / 100
+        self.num_contracts = self.shares_to_buy / 100
         print(f'number of contracts: {self.num_contracts}')
         self.check_and_send_order()
 

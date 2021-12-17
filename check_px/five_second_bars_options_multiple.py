@@ -13,6 +13,7 @@ class TestApp(EWrapper, EClient):
         EWrapper.__init__(self)
         EClient.__init__(self, wrapper=self)
         self.CallContract = Contract()
+        self.CallContract1 = Contract()
         self.data = []
         self.df = pd.DataFrame()
 
@@ -49,10 +50,20 @@ class TestApp(EWrapper, EClient):
         self.CallContract.right = "C"
         self.CallContract.multiplier = "100"
 
+        self.CallContract1.symbol = 'TQQQ'
+        self.CallContract1.secType = 'OPT'
+        self.CallContract1.exchange = 'SMART'
+        self.CallContract1.currency = 'USD'
+        self.CallContract1.lastTradeDateOrContractMonth = '20211217'
+        self.CallContract1.strike = 154
+        self.CallContract1.right = "C"
+        self.CallContract1.multiplier = "100"
 
         # self.reqRealTimeBars(3001, self.CallContract, 5, "MIDPOINT", True, [])
         self.reqRealTimeBars(3002, self.CallContract, 5, "BID", True, [])
         self.reqRealTimeBars(3003, self.CallContract, 5, "ASK", True, [])
+        self.reqRealTimeBars(3004, self.CallContract1, 5, "BID", True, [])
+        self.reqRealTimeBars(3005, self.CallContract1, 5, "ASK", True, [])
 
     def realtimeBar(self, reqId: TickerId, time: int, open_: float, high: float, low: float, close: float,
                     volume: int, wap: float, count: int):

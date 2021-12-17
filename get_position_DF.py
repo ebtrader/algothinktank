@@ -31,7 +31,8 @@ class TestApp(EWrapper, EClient):
               "UnrealizedPNL:", unrealizedPNL, "RealizedPNL:", realizedPNL, "AccountName:", accountName)
 
         self.df.loc[len(self.df)] = [contract.symbol, contract.secType, position]
-        self.df.to_csv('position.csv')
+        print(self.df)
+        # self.df.to_csv('position.csv')
 
     def start(self):
         self.reqAccountUpdates(True, "")
