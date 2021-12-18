@@ -1,0 +1,7 @@
+use random numbers to test it outside of market hours
+
+first create the variables for the mid price
+then put the variable outputs in a list
+then create a dictionary with that list
+then create a df from that dictionary
+then do the calcs in the columns
