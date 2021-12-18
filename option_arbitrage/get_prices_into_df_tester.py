@@ -50,7 +50,7 @@ class RandomNumbersInLists:
 
     def df_add_columns(self):
         self.df['add'] = self.df['prices'] + 3
-        print(self.df)
+        # print(self.df)
 
     def playlist(self):
         while self.tick_count < self.ticks_in_test_period:

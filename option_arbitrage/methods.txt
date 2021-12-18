@@ -1,0 +1,4 @@
+secdefparameters
+run through the calendar and determine what are the contract ending days
+
+pass variables into functions and return output
